@@ -1,0 +1,62 @@
+\documentclass{report}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+
+\title{Mini-projet : Alignement de séquences LU3IN003 - Sorbonne Université}
+\author{GAMA Gustavo \\ EL BEBLAWY Rami}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{Question 1}
+Si $(\bar{x},\bar{y})$ et $(\bar{u},\bar{v})$ sont respectivement des alignements de $(x,y)$ et $(u,v)$ alors $(\bar{x}.\bar{u},\bar{y}.\bar{v})$ est un alignement de $(x.u, y.v)$ car:
+
+- d'après (i), $\pi(\bar{y})=y$ et $\pi(\bar{v})=v$ donc $\pi(\bar{y}\cdot \overline{v}) = y\cdot v$.
+
+- et d'après (ii), $\pi(\bar{y})= y$ et $\pi(\bar{v}) = v$ donc $\pi(\bar{y}\cdot \bar{v}) = y\cdot v$.
+
+- si $(\bar{x},\bar{y})$ et $(\bar{u},\bar{v})$ sont des alignements, alors $|\bar{x}|=|\bar{y}|$ et $|\bar{u}|=|\bar{v}|$, donc $(\bar{x}.\bar{u}) = |\bar{x}|+|\bar{u}|$ et $(\bar{y}.\bar{v}) = |\bar{y}|+|\bar{v}|$
+
+- il faut que (iv) soit respectée c'est-à-dire(définition): * $\forall i \in [1..|\bar{x}|]$, $\bar{x_{i}}\ne$ --- ou $\bar{y_{i}}\ne$ --- et $\forall i \in [1..|\bar{u}|], \bar{u_{i}}\ne -$ ou $\bar{v_{i}}\ne$ ---
+
+Donc $\forall i\in [1..(|\bar{x}|+|\bar{u}|)]$, $((\overline{x\cdot u})_{i} \ne$ --- ou $(\overline{y\cdot v})_{i}$
+
+\subsection*{Question 2}
+La longueur maximale d'un aligement de $(x,y)$ est $n+m$ car on a alors un gap en face de chaque lettre, pour chacun des mots. On ne peut avoir deux gaps face à face, on ne peut donc augmenter la longueur du mot. Exemple avec les mots A et AG de taille n = 1 et m = 2
+\begin{center}
+$A--$
+
+$-AG$
+\end{center}
+On a bien une longueur de $3 = n + m $.
+
+\subsection*{Question 3}
+En ajoutant k gaps à x, on obtient un mot de taille $n+k$. On va placer k gaps parmis ces $n+k$ places. On va donc choisir k parmis $n+k$, le nombre de mots $\bar{x}$ obtenus est donc $\binom{n+k}{k}$.
+
+\subsection*{Question 4}
+Une fois ajoutés k gaps à x pour obtenir $\bar{x}$, on a un mot de taille $n+k$. Afin de l'aligner avec y, il faut que $\bar{y}$ soit aussi de taille $n+k$. Or, y est de taille m. Il faut donc ajouter $n+k-m$ gaps à y.
+
+Le nombre de mots possible pour $\bar{x}$ est $\binom{n+k}{k}$, et le nombre de mots possible pour $\bar{y}$ est  $\binom{n+k}{n+k-m}$. Or, on doit enlever les mots où des gaps se superposent. Il y a donc k choix en moins pour placer les gaps de $\bar{y}$. On obtient donc, pour un k donné, $\binom{n+k}{k}*\binom{n}{n+k-m}$ combinaisons possibles.
+
+On va ajouter à $n$ de 0 à, au plus, $m$ gaps (on obtient ainsi le mot de taille maximale $n+m$).
+
+Le nombre d'alignements possible pour $(x,y)$ est donc $ \sum_{k=0}^{k=m}\binom{n+k}{k}\binom{n}{n+k-m}$
+
+En utilisant un calculateur en ligne, on trouve 298 199 265 alignements possibles pour $|x|=15$ et $|y|=10$.
+
+\subsection*{Question 5}
+On peut trouver l'alignement de coût minimal en même temps que l'énumération de tous les alignements possibles à l'aide d'une variable qui stocke le minimum obtenu à chaque fois, et l'aligement qui en est à l'origine?
+
+Afin de calculer la distance d'édition de deux mots, il faut calculer la distance entre chaque lettre. Il y a $n+k$ lettres, c'est donc une opération en $O(n+k)=O(n)$(car $n>m\ge k$). On va effectuer cette opération pour chaque combinaison possible, la complexité obtenu est donc $O(n*\sum_{k=0}^{k=m}\binom{n+k}{k}\binom{n}{n+k-m})$, soit $O(n!)$.
+
+
+\subsection*{Question 6}
+Il n'est nécéssaire de garder en mémoire uniquement les 2 mots en cours d'analyse et le meilleur alignement trouvé jusqu'ici. On a donc une complexité spatiale en $O(n)$.
+
+
+\end{document}
