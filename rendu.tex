@@ -59,4 +59,15 @@ Afin de calculer la distance d'édition de deux mots, il faut calculer la distan
 Il n'est nécéssaire de garder en mémoire uniquement les 2 mots en cours d'analyse et le meilleur alignement trouvé jusqu'ici. On a donc une complexité spatiale en $O(n)$.
 
 
+\clearpage
+
+\subsection*{Question 7}
+Si $\bar{u}_{l} = $ ---, alors $\bar{v}_{l} = y_{j}$ , si  $\bar{v}_{l} = $ ---, alors $\bar{u}_{l} = x_{i}$ . Si $\bar{u}_{l} \ne $ --- et $\bar{v}_{l} \ne $ ---, alors $\bar{u}_{l} = x_{i}$ et $\bar{v}_{l} = y_{j}$, car on ne peut changer l'ordre des lettres et on ne peut aligner deux gaps. Ainsi, la dernière lettre de $Al(i,j)$ est forcément, soit ---, soit $x_{i}$ (respectivement $y_{j}$).
+
+\subsection*{Question 8}
+Si $\bar{u}_{l} = $ --- ou $\bar{v}_{l} = $ ---, alors $C(\bar{u}, \bar{v}) = C(\bar{u}_{[1..l-1]}, \bar{v}_{[1..l-1]}) + c_{ins/del}$.
+
+Sinon, $C(\bar{u}, \bar{v}) = C(\bar{u}_{[1..l-1]}, \bar{v}_{[1..l-1]}) + c_{sub}(x_{i},y_{j})$
+
+
 \end{document}
