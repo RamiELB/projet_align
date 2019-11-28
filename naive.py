@@ -45,7 +45,7 @@ def dist_naif_rec(x,y,i,j,c,dist):
         Renvoie le coût du meilleur alignement après appel """
     if i == x.size-1 and j == y.size-1 :
         if dist == -1 or c < dist :
-            dist = c
+            return c
     
     if i < x.size-1 and j < y.size-1:
         dist = dist_naif_rec(x,y,i+1,j+1,c+sub(x[i+1], y[j+1]), dist)
@@ -78,7 +78,7 @@ def sub(a,b):
 
 
 def main():
-    (x,y) = lire_mots("Instances_genome/Inst_0000010_8.adn")
+    (x,y) = lire_mots("Instances_genome/Inst_0000010_44.adn")
     dist = dist_naif(x,y)
     print("Distance : {}".format(dist))
 

@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
+\usepackage{listings}
 
 \title{Mini-projet : Alignement de séquences LU3IN003 - Sorbonne Université}
 \author{GAMA Gustavo \\ EL BEBLAWY Rami}
@@ -67,7 +68,80 @@ Si $\bar{u}_{l} = $ ---, alors $\bar{v}_{l} = y_{j}$ , si  $\bar{v}_{l} = $ ---,
 \subsection*{Question 8}
 Si $\bar{u}_{l} = $ --- ou $\bar{v}_{l} = $ ---, alors $C(\bar{u}, \bar{v}) = C(\bar{u}_{[1..l-1]}, \bar{v}_{[1..l-1]}) + c_{ins/del}$.
 
-Sinon, $C(\bar{u}, \bar{v}) = C(\bar{u}_{[1..l-1]}, \bar{v}_{[1..l-1]}) + c_{sub}(x_{i},y_{j})$
+Sinon, $C(\bar{u}, \bar{v}) = C(\bar{u}_{[1..l-1]}, \bar{v}_{[1..l-1]}) + c_{sub}(x_{i},y_{j})$.
+
+
+\subsection*{Question 9}
+$$
+D(i,j)= min\left\{
+    \begin{array}{ll}
+        D(i-1,j-1) + c_{sub}(x_{i},y_{j}) \\
+        D(i',j) +  c_{del} * (i-i') :  i' \in [0..i[ \\
+        D(i,j') +  c_{ins} * (j-j') :  j' \in [0..j[
+    \end{array}
+\right.
+$$
+
+\subsection*{Question 10}
+$D(0,0)=0$  car il n'y a pas de ``coût initial'' pour commencer l'alignement.
+
+\subsection*{Question 11}
+Pour $j\in[1..m]$, on a $D(0,j)=c_{ins}*j$ car cela veut dire qu'il n'y aucune lettre de $ \Sigma$ dans $\bar{u}$, donc uniquement des insertions.
+
+De même, pour  $i\in[1..n]$, on a $D(i,0)=c_{del}*i$ car cela veut dire qu'il n'y a  aucune lettre de $ \Sigma$ dans $\bar{v}$, donc uniquement des suppressions.
+
+\clearpage
+
+\subsection*{Question 12}
+\begin{lstlisting}[
+  mathescape,
+]
+DIST_1(x,y):
+
+Pour i allant de 0 a n:
+
+    Pour j allant de 0 a m :
+    
+        Si i = 0:
+            Si j = 0:
+                D[0,0] $\gets$ 0
+            Sinon:
+                D[0,j] $\gets$ $j*c_{ins}$
+    
+        Sinon:
+            Si j = 0:
+                D[i,0] $\gets$ $i*c_{del}$
+                
+            Sinon :
+                c $\gets$ $+\infty$
+                
+                Pour i' allant de 0 a i:
+                    Si D[i',j] + (i-i') * $c_{del}$ < c:
+                        c $\gets$ D[i',j] + (i-i') * $c_{del}$
+                fin pour
+                
+                Pour j' allant de 0 a j:
+                    Si D[i,j'] + (j-') * $c_{ins}$ < c:
+                        c $\gets$ D[i,j'] + (j-j') * $c_{ins}$
+                fin pour
+                
+                Si D[i-1,j-1] + $c_{sub}(x_{i},y_{j})$ < c:
+                    c $\gets$ D[i-1,j-1] + $c_{sub}(x_{i},y_{j})$
+                    
+                D[i,j] $\gets$ c
+                
+    fin pour
+fin pour
+\end{lstlisting}
+
+\clearpage
+
+\subsection*{Question 13}
+L'algorithme DIST\_1 prend en mémoire un tableau imbriqué de taille n*m, sa complexité spatiale est donc de l'ordre $O(nm)$.
+
+\subsection*{Question 14}
+On a trois boucles imbriquées allant jusqu'à n/m. Sa complexité temporelle est donc de l'ordre de $O(max(n,m)^{3})$.
+
 
 
 \end{document}
