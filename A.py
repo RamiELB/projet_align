@@ -1,5 +1,5 @@
-import numpy as np
-
+c_del = 2
+c_ins = 2
 
 def lire_mots(filename):
     """ Prend en entrée le nom d'un fichier de type adn
@@ -23,40 +23,7 @@ def lire_mots(filename):
     del mot1[-1]
     del mot2[-1]
 
-    #Conversion des listes en tableau
-    mot1 = np.asarray(mot1)
-    mot2 = np.asarray(mot2)
-
     return (mot1, mot2)
-
-
-def dist_naif(x,y):
-    """ Prend en entrée deux mots sous forme de tableau numpy
-        et lance le premier appel de dist_naif_rec.
-        Renvoie la distance d'édition minimale entre x et y """
-
-    return dist_naif_rec(x,y,-1,-1,0,-1)
-
-def dist_naif_rec(x,y,i,j,c,dist):
-    """ Prend en entée deux mots sous forme de tableau numpy,
-        deux indices entiers i et j,
-        c coût de l'alignement de x[:i],y[:j]
-        dist le coût du meilleur alignement de (x,y) avant appel
-        Renvoie le coût du meilleur alignement après appel """
-    if i == x.size-1 and j == y.size-1 :
-        if dist == -1 or c < dist :
-            return c
-    
-    if i < x.size-1 and j < y.size-1:
-        dist = dist_naif_rec(x,y,i+1,j+1,c+sub(x[i+1], y[j+1]), dist)
-
-    if i < x.size-1:
-        dist = dist_naif_rec(x,y,i+1,j,c+2, dist)
-
-    if j < y.size-1:
-        dist = dist_naif_rec(x,y,i,j+1,c+2, dist)
-
-    return dist
 
 
 def sub(a,b):
@@ -75,6 +42,35 @@ def sub(a,b):
         return 3
 
     return 4
+
+
+def dist_naif(x,y):
+    """ Prend en entrée deux mots sous forme de tableau
+        et lance le premier appel de dist_naif_rec.
+        Renvoie la distance d'édition minimale entre x et y """
+
+    return dist_naif_rec(x,y,-1,-1,0,-1)
+
+def dist_naif_rec(x,y,i,j,c,dist):
+    """ Prend en entée deux mots sous forme de tableau,
+        deux indices entiers i et j,
+        c coût de l'alignement de x[:i],y[:j]
+        dist le coût du meilleur alignement de (x,y) avant appel
+        Renvoie le coût du meilleur alignement après appel """
+    if i == len(x)-1 and j == len(y)-1 :
+        if dist == -1 or c < dist :
+            return c
+    
+    if i < len(x)-1 and j < len(y)-1:
+        dist = dist_naif_rec(x,y,i+1,j+1,c+sub(x[i+1], y[j+1]), dist)
+
+    if i < len(x)-1:
+        dist = dist_naif_rec(x,y,i+1,j,c+c_del, dist)
+
+    if j < len(y)-1:
+        dist = dist_naif_rec(x,y,i,j+1,c+c_ins, dist)
+
+    return dist
 
 
 def main():

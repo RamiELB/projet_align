@@ -76,8 +76,8 @@ $$
 D(i,j)= min\left\{
     \begin{array}{ll}
         D(i-1,j-1) + c_{sub}(x_{i},y_{j}) \\
-        D(i',j) +  c_{del} * (i-i') :  i' \in [0..i[ \\
-        D(i,j') +  c_{ins} * (j-j') :  j' \in [0..j[
+        D(i-1,j) +  c_{del}\\
+        D(i,j-1) +  c_{ins} 
     \end{array}
 \right.
 $$
@@ -98,40 +98,35 @@ De même, pour  $i\in[1..n]$, on a $D(i,0)=c_{del}*i$ car cela veut dire qu'il n
 ]
 DIST_1(x,y):
 
-Pour i allant de 0 a n:
+    Pour i allant de 0 a n:
 
-    Pour j allant de 0 a m :
-    
-        Si i = 0:
-            Si j = 0:
-                D[0,0] $\gets$ 0
+        Pour j allant de 0 a m :
+        
+            Si i = 0:
+                Si j = 0:
+                    D[0,0] $\gets$ 0
+                Sinon:
+                    D[0,j] $\gets$ $j*c_{ins}$
+        
             Sinon:
-                D[0,j] $\gets$ $j*c_{ins}$
-    
-        Sinon:
-            Si j = 0:
-                D[i,0] $\gets$ $i*c_{del}$
-                
-            Sinon :
-                c $\gets$ $+\infty$
-                
-                Pour i' allant de 0 a i:
-                    Si D[i',j] + (i-i') * $c_{del}$ < c:
-                        c $\gets$ D[i',j] + (i-i') * $c_{del}$
-                fin pour
-                
-                Pour j' allant de 0 a j:
-                    Si D[i,j'] + (j-') * $c_{ins}$ < c:
-                        c $\gets$ D[i,j'] + (j-j') * $c_{ins}$
-                fin pour
-                
-                Si D[i-1,j-1] + $c_{sub}(x_{i},y_{j})$ < c:
-                    c $\gets$ D[i-1,j-1] + $c_{sub}(x_{i},y_{j})$
+                Si j = 0:
+                    D[i,0] $\gets$ $i*c_{del}$
                     
-                D[i,j] $\gets$ c
-                
+                Sinon :
+                    c $\gets D[i-1,j-1] + c_{sub}(x_{i},y_{j})$
+                    
+                    Si D[i-1,j] + $c_{del}$ < c:
+                        c $\gets D[i-1,j] + c_{del}$
+
+                    Si D[i,j-1] + $c_{ins}$ < c:
+                        c $\gets D[i,j-1] + c_{ins}$
+                        
+                    D[i,j] $\gets$ c
+                    
+        fin pour
     fin pour
-fin pour
+    
+    return D
 \end{lstlisting}
 
 \clearpage
@@ -140,8 +135,68 @@ fin pour
 L'algorithme DIST\_1 prend en mémoire un tableau imbriqué de taille n*m, sa complexité spatiale est donc de l'ordre $O(nm)$.
 
 \subsection*{Question 14}
-On a trois boucles imbriquées allant jusqu'à n/m. Sa complexité temporelle est donc de l'ordre de $O(max(n,m)^{3})$.
+On a deux boucles imbriquées allant jusqu'à n/m. Sa complexité temporelle est donc de l'ordre de $O(max(n,m)^{2})$.
 
+\subsection*{Question 15}
+Si on a $j>0$ et $D(i,j) = D(i,j-1) + c_{ins}$, cela signifie que le meilleur coût de l'alignement de $(x_{[1..u]},y_{[1..j]})$ est obtenu à partir de l'aligement  $(x_{[1..u]},y_{[1..j-1]})$ en ajoutant une insertion. Cela se traduit, donc, d'après l'énoncé, à rajouter un gap dans $x$, et se traduit mathématiquement par 
+$$ \forall(\bar{s},\bar{t}) \in Al*(i,j-1),  (\bar{s}\cdot-,\bar{t}\cdot y_{j}) \in Al*(i,j) $$
+On applique les même raisonnement pour les deux autres expressions, et on trouve ainsi
+$$ \forall(\bar{s},\bar{t}) \in Al*(i-1,j),  (\bar{s}\cdot x_{i},\bar{t}\cdot-) \in Al*(i,j) $$
+$$ \forall(\bar{s},\bar{t}) \in Al*(i-1,j-1), (\bar{s}\cdot x_{i},\bar{t}\cdot y_{j})  \in Al*(i,j) $$
+
+\clearpage
+\subsection*{Question 16}
+\begin{lstlisting}[
+  mathescape,
+]
+SOL_1(x,y,D):
+
+    (Les insertions dans $\bar{x}$ et $\bar{y}$ se font au debut)
+    
+    $i \gets |x| $
+    $j \gets |y| $
+
+    Tant que i > 0 et j > 0:
+        Si $D[i,j] =  D[i-1,j-1] + c_{sub}(x_{i},y_{j})$:
+            $\bar{x} \gets x_{i}$
+            $\bar{y} \gets y_{j}$
+            $i \gets i-1$
+            $j \gets j-1$
+        Sinon:
+            Si $D[i,j] =  D[i,j-1] + c_{ins}$:
+                $\bar{x} \gets -$
+                $\bar{y} \gets y_{j}$
+                $j \gets j-1$
+            Sinon:
+                $\bar{x} \gets x_{i}$
+                $\bar{y} \gets -$
+                $i \gets i-1$
+    fin tant que
+                
+    Tant que i > 0 :
+        $\bar{x} \gets x_{i}$
+        $\bar{y} \gets -$
+        $i \gets i-1$
+    fin tant que
+        
+    Tant que j > 0 :
+        $\bar{x} \gets -$
+        $\bar{y} \gets y_{j}$
+        $j \gets j-1$
+    fin tant que
+    
+    return $(\bar{x}, \bar{y})$
+            
+\end{lstlisting}
+
+\clearpage
+
+\subsection*{Question 17}
+SOL\_1 est en $O(n+m)$ et DIST\_1 en $O(max(n,m)^{2})$, ainsi l'éxecution séquentielle de ces deux algorithmes a une complexité temporelle de  $O(max(n,m)^{2})$.
+
+\subsection*{Question 18}
+Ces fonctions utilisent des chaines et tableaux de taille allant jusqu'à n+m et un tableau de taille n*m. La complexité spatiale totale est donc $O(nm)$.
 
 
 \end{document}
+
