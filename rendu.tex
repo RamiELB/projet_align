@@ -197,6 +197,45 @@ SOL\_1 est en $O(n+m)$ et DIST\_1 en $O(max(n,m)^{2})$, ainsi l'éxecution séqu
 \subsection*{Question 18}
 Ces fonctions utilisent des chaines et tableaux de taille allant jusqu'à n+m et un tableau de taille n*m. La complexité spatiale totale est donc $O(nm)$.
 
+\subsection*{Question 19}
+Lorsqu'on remplit la ligne i du tableau, on n'a besoin de regarder uniquement 3 cases : D(i-1,j-1), D(i-1,j) et D(i,j-1) (cf l'algorithme).
+Ainsi, on n'utilise pas les lignes $D(i',j)_{(i'<i-1, j\in[1..m])}$
+
+\subsection*{Question 20}
+\begin{lstlisting}[
+  mathescape,
+]
+DIST_2(x,y):
+    Pour j allant de 0 a m:
+        $prec[j] \gets j * c_{ins} $
+    fin pour
+    
+    Pour i allant de 1 a n:
+    
+        Pour j allant de 0 a m:
+        
+            Si j = 0:
+                $D[0] = i * c_{del}$
+                
+            Sinon:
+                c $\gets prec[j-1] + c_{sub}(x_{i},y_{j})$
+                    
+                Si prec[j]+ $c_{del}$ < c:
+                    c $\gets prec[j]+ c_{del}$
+
+                Si D[j-1] + $c_{ins}$ < c:
+                    c $\gets D[j-1] + c_{ins}$
+                        
+                D[j] $\gets$ c
+        fin pour
+        $prec \gets D$
+    fin pour
+    
+    return D
+
+\end{lstlisting}
+
+
 
 \end{document}
 
