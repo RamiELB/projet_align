@@ -235,6 +235,101 @@ DIST_2(x,y):
 
 \end{lstlisting}
 
+\clearpage
+
+\subsection*{Question 21}
+\begin{lstlisting}[
+  mathescape,
+]
+mots_gaps(k):
+
+    $M \gets$ ''
+    Pour i allant de 1 a k:
+        M $\gets$ M +'-'
+    fin pour
+
+    return M
+\end{lstlisting}
+
+\subsection*{Question 22}
+\begin{lstlisting}[
+  mathescape,
+]
+align_lettre_mot(x,y):
+
+    c $\gets \infty$
+    
+    Pour j allant de 1 a |y|:
+        Si $c_{sub}(x_{1}, y_{j})$ < c:
+            $c \gets c_{sub}(x_{1}, y_{j})$
+            $i \gets j$
+        fin pour
+        
+    $\bar{x} \gets $ mots_gaps(i-1) + $x_{1}$ + mots_gaps(|y| - i)
+    
+    return ($\bar{x},y$)
+
+\end{lstlisting}
+
+\subsection*{Question 23}
+On a $(\bar{s},\bar{t})$ l'alignement optimal de $(x^{1},y^{1})$ suivant  de coût 13:
+\begin{center}
+B A L
+ 
+R O --
+\end{center}
+
+et$(\bar{u},\bar{v})$ l'alignement optimal de $(x^{2},y^{2})$ suivant  de coût 9:
+\begin{center}
+L O N --
+ 
+-- -- N D
+\end{center}
+
+Il en vient donc $(\bar{s}\cdot\bar{u},\bar{t}\cdot\bar{v})$ un alignement de (x,y) de coût 21:
+\begin{center}
+B A L L O N --
+ 
+R O -- -- -- N D
+\end{center}
+
+Or, on trouve l'alignement suivant de (x,y):
+\begin{center}
+B A L L O N --
+
+-- -- -- R O N D
+\end{center}
+
+Cet alignement est de coût 17, donc $(\bar{s}\cdot\bar{u},\bar{t}\cdot\bar{v})$ n'est pas un alignement optimal de (x,y).
+
+\clearpage
+
+\subsection*{Question 24}
+\begin{lstlisting}[
+  mathescape,
+]
+SOL_2(x,y):
+
+    Si |y| = 0:
+        y $\gets$ mots_gaps(|x|)
+        return (x,y)
+        
+    Si |x| = 0:
+        x $\gets$ mots_gaps(|y|)
+        return (x,y)
+        
+    Si |x| = 1:
+        return align_lettre_mot(x,y)
+        
+    i* $\gets$ |x| / 2
+    j* $\gets$ coupure(x,y)
+    
+    (x1, y1) $\gets$ SOL_2$(x_{[1..i*]},y_{[1..j*]})$
+    (x2, y2) $\gets$ SOL_2$(x_{[i*1..|x|]},y_{[j*+1..|y|]})$
+    
+    return(x1+x2,y1+y2)
+        
+\end{lstlisting}
 
 
 \end{document}
