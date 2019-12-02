@@ -265,7 +265,7 @@ align_lettre_mot(x,y):
             $i \gets j$
         fin pour
         
-    $\bar{x} \gets $ mots_gaps(i-1) + $x_{1}$ + mots_gaps(|y| - i)
+    $\bar{x} \gets $ mots_gaps(i-1) + $x$ + mots_gaps(|y| - i)
     
     return ($\bar{x},y$)
 
@@ -331,6 +331,62 @@ SOL_2(x,y):
         
 \end{lstlisting}
 
+\clearpage
+\subsection*{Question 25}
+
+\begin{lstlisting}[
+  mathescape,
+]
+coupure(x,y):
+
+    Pour j allant de 0 a m:
+        $prec[j] \gets j * c_{del} $
+    fin pour
+    
+    $stop \gets i / 2$
+    
+    Pour i allant de 1 a n:
+    
+        Pour j allant de 0 a stop:
+        
+            Si j = 0:
+                $D[0] = i * c_{del}$
+                $min\_c \gets i * c_{ins}$
+                $indice\_min \gets j$
+                
+            Sinon:
+                c $\gets prec[j-1] + c_{sub}(x_{i},y_{j})$
+                    
+                Si prec[j]+ $c_{del}$ < c:
+                    c $\gets prec[j]+ c_{del}$
+
+                Si D[j-1] + $c_{ins}$ < c:
+                    c $\gets D[j-1] + c_{ins}$
+                    
+                Si c <= min_c :
+                    $min\_c \gets c$
+                    $indice\_min \gets j$
+                        
+                D[j] $\gets$ c
+        fin pour
+        $prec \gets D$
+    fin pour
+    
+    return indice_min
+
+\end{lstlisting}
+
+
+\subsection*{Question 26}
+Trois tableaux de tailles n, donc O(n).
+
+\subsection*{Question 27}
+Quatre tableaux de taile max n/m, donc O(max(n,m)). On suppose que n>= m, ainsi on note O(n) la complexité de SOL\_2.
+
+\subsection*{Question 28}
+$O(n^{2})$ il y a deux boucles imbriquées de taille max n.
+
+\subsection*{Question 29}
 
 \end{document}
 

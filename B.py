@@ -73,7 +73,7 @@ def dist_1(x,y):
                         c = D[i][j-1] + c_ins
 
                     D[i][j] = c
-
+        print(D[i])
     return D
 
 def sol_1(x,y,D):
