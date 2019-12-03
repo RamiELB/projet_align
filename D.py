@@ -43,16 +43,17 @@ def sub(a,b):
     return 4
 
 def sol_2(x,y):
+
     if len(y) == 0:
         y = mots_gaps(len(x))
         return (x,y)
 
+    if len(x) == 1:
+        return align_lettre_mot(x,y)
+
     if len(x) == 0:
         x = mots_gaps(len(y))
         return (x,y)
-
-    if len(x) == 1:
-        return align_lettre_mot(x,y)
 
     i = len(x) // 2
     j = coupure(x,y)
@@ -63,12 +64,11 @@ def sol_2(x,y):
     return (x1+x2, y1+y2)
 
 def coupure(x,y):
-    prec = []
-    m = len(y) + 1
-
+    prec = [0]
+    m = len(y)+1
     stop = len(x) // 2
     for j in range(m):
-        prec.append(j * c_del)
+        prec.append((j+1)* c_del)
     for i in range(1,stop+1):
         D = []
         for j in range(m):
@@ -89,6 +89,7 @@ def coupure(x,y):
         prec = D
     return indice_min
 
+
 def mots_gaps(k):
     m = []
     for i in range(k):
@@ -98,7 +99,7 @@ def mots_gaps(k):
 def align_lettre_mot(x,y):
     c = -1
     i = 0
-    for j in range(len(y)-1):
+    for j in range(len(y)):
         if sub(x[0], y[j]) < c or c == -1:
             c = sub(x[0], y[j])
             i = j
@@ -106,9 +107,11 @@ def align_lettre_mot(x,y):
     return (x_,y)
 
 def main():
-    (x,y) = lire_mots("Instances_genome/Inst_0000010_7.adn")
+    (x,y) = lire_mots("Instances_genome/Inst_0000010_44.adn")
     (x,y) = sol_2(x,y)
     print("{}\n{}".format(x,y))
 
 if __name__ == "__main__":
     main()
+
+

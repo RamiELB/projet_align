@@ -47,10 +47,10 @@ def dist_2(x,y):
     """ Prend en entrée deux mots sous forme de tableau
     et renvoie le tableau D"""
 
-    prec = []
+    prec = [0]
     m = len(y) + 1
     for j in range(m):
-        prec.append(j * c_del)
+        prec.append((j+1) * c_del)
     for i in range(1,len(x)+1):
         D = []
         for j in range(m):
@@ -64,6 +64,7 @@ def dist_2(x,y):
                     c = D[j-1] + c_ins
                 D.append(c)
         prec = D
+        print(D)
     return D
 
 def main():

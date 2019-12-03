@@ -73,7 +73,6 @@ def dist_1(x,y):
                         c = D[i][j-1] + c_ins
 
                     D[i][j] = c
-        print(D[i])
     return D
 
 def sol_1(x,y,D):
@@ -128,7 +127,7 @@ def prog_dyn(x,y):
     return (x2,y2,D[len(x)][len(y)])
 
 def main():
-    (x,y) = lire_mots("Instances_genome/Inst_0000010_7.adn")
+    (x,y) = lire_mots("Instances_genome/Inst_0000010_8.adn")
     (x2,y2,D) = prog_dyn(x,y)
     print("Distance : {}\n{} \n{}".format(D, x2,y2))
 
