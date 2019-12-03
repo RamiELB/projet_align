@@ -43,7 +43,11 @@ def sub(a,b):
     return 4
 
 def sol_2(x,y):
+    """ Prend en entrée deux mots x et y et
+        renvoie le meilleur alignement """
 
+    """ Les trois premiers tests permettent de gérer les
+        case de base """
     if len(y) == 0:
         y = mots_gaps(len(x))
         return (x,y)
@@ -55,18 +59,30 @@ def sol_2(x,y):
         x = mots_gaps(len(y))
         return (x,y)
 
+    # i* <- n/2
     i = len(x) // 2
+    # On récupère j*
     j = coupure(x,y)
 
+    # On réalise les appels récursifs sur les mots coupés
     (x1, y1) = sol_2(x[:i], y[:j])
     (x2, y2) = sol_2(x[i:], y[j:])
 
     return (x1+x2, y1+y2)
 
 def coupure(x,y):
+    """ Prend en entrée deux mots x et y
+    et renvoie l'indice j* de la meilleur coupure
+    associée à i* """
+    """ On s'appuye sur la foncton dist_2 de la tache C
+    il suffit cependant de s'arrêter à la ligne i*. 
+    Ainsi, la meilleur coupure sera là où le coût est minimum sur 
+    la ligne i* """
+
     prec = [0]
     m = len(y)+1
     stop = len(x) // 2
+        # Première ligne
     for j in range(m):
         prec.append((j+1)* c_del)
     for i in range(1,stop+1):
@@ -91,13 +107,23 @@ def coupure(x,y):
 
 
 def mots_gaps(k):
+    """ Renvoie le mot constitué de k gaps """
     m = []
     for i in range(k):
         m.append('_')
     return m
 
 def align_lettre_mot(x,y):
-    c = -1
+    """ Prend en entrée un mot x de longueur 1
+    et un mot y de longueur quelconque
+    Renvoie le meilleur alignement """
+
+    """ x étant de longueur 1, il existe forcément un
+    meilleur alignement comportant une substition, car
+    une insertion + une suppression a le même coût qu'une
+    substitution dans le pire des cas. Ainsi, il suffit de 
+    trouver la substition de coût minimum pour x0 dans y """
+    c = -1 
     i = 0
     for j in range(len(y)):
         if sub(x[0], y[j]) < c or c == -1:

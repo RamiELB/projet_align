@@ -31,14 +31,17 @@ def sub(a,b):
         renvoie le coût de substition """
 
     if a == b:
+        # Même lettre : coût nul
         return 0
 
     if a in ['A', 'T']:
         if b in ['A', 'T']:
+            # Paire concordante
             return 3
         return 4
 
     if b in ['G', 'C']:
+        # Paire concordante
         return 3
 
     return 4
@@ -48,7 +51,7 @@ def dist_naif(x,y):
     """ Prend en entrée deux mots sous forme de tableau
         et lance le premier appel de dist_naif_rec.
         Renvoie la distance d'édition minimale entre x et y """
-
+        # Il faut faire le premier appel avec les indices -1, car à l'itération on remplit la ligne i+1
     return dist_naif_rec(x,y,-1,-1,0,-1)
 
 def dist_naif_rec(x,y,i,j,c,dist):
@@ -57,6 +60,8 @@ def dist_naif_rec(x,y,i,j,c,dist):
         c coût de l'alignement de x[:i],y[:j]
         dist le coût du meilleur alignement de (x,y) avant appel
         Renvoie le coût du meilleur alignement après appel """
+
+    # Traduction du pseudo-code donné dans l'énoncé en python
     if i == len(x)-1 and j == len(y)-1 :
         if dist == -1 or c < dist :
             return c

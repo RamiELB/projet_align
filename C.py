@@ -46,16 +46,22 @@ def sub(a,b):
 def dist_2(x,y):
     """ Prend en entrée deux mots sous forme de tableau
     et renvoie le tableau D"""
-
-    prec = [0]
     m = len(y) + 1
+
+    # Remplissage de la première ligne
+    prec = [0]
     for j in range(m):
         prec.append((j+1) * c_del)
+
+    # Remplissage des lignes suivantes
     for i in range(1,len(x)+1):
         D = []
         for j in range(m):
+            # Première case
             if j == 0:
                 D.append(i * c_ins)
+
+            # Test du meilleur coût et ajout dans D
             else:
                 c = prec[j-1] + sub(x[i-1],y[j-1])
                 if prec[j] + c_del < c:
@@ -63,14 +69,13 @@ def dist_2(x,y):
                 if D[j-1] + c_ins < c:
                     c = D[j-1] + c_ins
                 D.append(c)
-        prec = D
-        print(D)
+        prec = D # La ligne actuelle devient la précédente
     return D
 
 def main():
     (x,y) = lire_mots("Instances_genome/Inst_0000010_7.adn")
     D = dist_2(x,y)
-    print(D)
+    print(D[-1])
 
 if __name__ == "__main__":
     main()

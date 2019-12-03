@@ -47,12 +47,15 @@ def sub(a,b):
 def dist_1(x,y):
     """ Prend en entrée deux mots sous forme de tableau
     et renvoie le tableau D"""
+
+    # Initialisation du tableau vide de taille n * m
     D = []
     for i in range(len(x)+1):
         D.append([])
         for j in range(len(y)+1):
             D[i].append(None)
 
+    # Afin d'améliorer la visibilité, on a remplacé les indices par leurs valeurs pour les cas de base
     for i in range(len(x)+1):
         for j in range(len(y)+1):
             if i == 0:
@@ -78,6 +81,7 @@ def dist_1(x,y):
 def sol_1(x,y,D):
     """ Prend en entrée deux mots x,y et le tableau déjà remplit des distances
     Renvoie l'alignement minial de (x,y)"""
+    
     """On ne peut ajouter un élément en début de liste en O(1) en python.
     Ainsi, afin de conserver les complexités théoriques du sujet, nous allons
     ajouter les éléments en fin de liste, puis inverser les listes à la fin en O(n),
@@ -87,35 +91,37 @@ def sol_1(x,y,D):
     j = len(y) 
     x2=[]
     y2=[]
-
+    # On va parcourir le tableau D de haut en bas et reconstituer le "chemin emprunté"
     while i > 0 and j > 0: 
+            # Cas où la substitution était le moins coûteux
         if D[i][j] == D[i-1][j-1] + sub(x[i-1],y[j-1]):
             x2.append(x[i-1])
             y2.append(y[j-1])
             i = i - 1
             j = j - 1
         else:
+            # Cas où l'insertion était le moins coûteux
             if D[i][j] == D[i][j-1] + c_ins:
                 x2.append('_')
                 y2.append(y[j-1])
                 j = j - 1
+            # Cas où la suppression était le moins coûteux
             else:
                 x2.append(x[i-1])
                 y2.append('_')
                 i = i - 1
-        
 
-    
+    # Il reste peut-être des insertions ou suppressionsà faire     
     while i > 0:
         x2.append(x[i-1])
         y2.append('_')
         i = i - 1
-    
     while j > 0:
         x2.append('_')
         y2.append(y[j-1])
         j = j - 1
 
+    # On inverse les tableaux pour les avoir dans le bon sens
     x2.reverse()
     y2.reverse()
 
