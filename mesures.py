@@ -8,18 +8,35 @@ import sys
 
 def main():
     with open("res_tache_B", 'w') as f:
+        print("---------    DEBUT TACHE A   --------\n")
+        for i in liste_instances:
+            i = "Instances_genome/" + i
+            (x,y) = lire_mots(i)
+            start = time()
+            dist_naif(x,y)
+            end = time()
+            res = round(end-start, 1)
+            f.write("{} {}\n".format(len(x), res))
+            print("Taille : {} Temps : {}".format(len(x),res))
+            if res > 60:
+                exit()
+
+    print("\n\n")
+    
+    with open("res_tache_B", 'w') as f:
         print("---------    DEBUT TACHE B   --------\n")
         for i in liste_instances:
             i = "Instances_genome/" + i
             (x,y) = lire_mots(i)
+            if len(x) >10000:
+                break
             start = time()
             prog_dyn(x,y)
             end = time()
             res = round(end-start, 1)
             f.write("{} {}\n".format(len(x), res))
             print("Taille : {} Temps : {}".format(len(x),res))
-            if res > 600:
-                exit()
+            
     print("\n\n")
 
     with open("res_tache_C", 'w') as f:

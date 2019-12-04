@@ -1,3 +1,4 @@
+import sys
 c_del = 2
 c_ins = 2
 
@@ -133,7 +134,7 @@ def prog_dyn(x,y):
     return (x2,y2,D[len(x)][len(y)])
 
 def main():
-    (x,y) = lire_mots("Instances_genome/Inst_0000010_8.adn")
+    (x,y) = lire_mots(sys.argv[1])
     (x2,y2,D) = prog_dyn(x,y)
     print("Distance : {}\n{} \n{}".format(D, x2,y2))
 

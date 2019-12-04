@@ -58,6 +58,22 @@ Afin de calculer la distance d'édition de deux mots, il faut calculer la distan
 
 \subsection*{Question 6}
 Il n'est nécéssaire de garder en mémoire uniquement les 2 mots en cours d'analyse et le meilleur alignement trouvé jusqu'ici. On a donc une complexité spatiale en $O(n)$.
+ 
+ 
+ \begin{center}
+ \subsection*{TACHE A}
+Le code de la tâche A se trouve dans le fichier A.py. Certaines fonctions sont volontairement redondantes dans plusieurs fichier afin de n'avoir aucune dépédence de fichier entre chaque tâche.
+
+Les résultats des tests se trouvent dans le fichier $res\_tests/res\_tache\_A$.
+
+Vous pouvez réalisez le graphe correspondant à ces données en lançant la commande $python$ $graphe.py$ $res\_tests/res\_tache\_A' $(il faut installer la librairie matplotlib si nécéssaire avec la commande 'pip install matplotlib'.
+
+Vous pouvez également créer vos données correspondantes aux performances de votre machine en éxecutant le fichier 'mesures-py'.
+
+On observe que, sur notre machine, on obtient un temps suppérieur à une minute pour une instance de taille 12.
+
+La consommation mémoire pour ces instances n'a pas dépassé 0.1\% (tableau récap dans le fichier $utilisation$).
+ \end{center}
 
 
 \clearpage
@@ -194,9 +210,30 @@ SOL_1(x,y,D):
 \subsection*{Question 17}
 SOL\_1 est en $O(n+m)$ et DIST\_1 en $O(max(n,m)^{2})$, ainsi l'éxecution séquentielle de ces deux algorithmes a une complexité temporelle de  $O(max(n,m)^{2})$.
 
+
 \subsection*{Question 18}
 Ces fonctions utilisent des chaines et tableaux de taille allant jusqu'à n+m et un tableau de taille n*m. La complexité spatiale totale est donc $O(nm)$.
 
+
+ \begin{center}
+ \subsection*{TACHE B}
+Le code de la tâche B se trouve dans le fichier B.py. Certaines fonctions sont volontairement redondantes dans plusieurs fichier afin de n'avoir aucune dépédence de fichier entre chaque tâche.
+
+Les résultats des tests se trouvent dans le fichier $res\_tests/res\_tache\_B1$ et $res\_tests/res\_tache\_B2$.
+
+Vous pouvez également créer vos données correspondantes aux performances de votre machine en éxecutant le fichier 'mesures-py'.
+
+On observe que, sur nos machine, on ne peut dépasser des tailles de 15000 et 10000 lettres, après quoi l'utilisation mémoire devient trop grande et l'OS tue notre programme
+
+La consommation mémoire pour ces instances est allée de 0.1\% à >100\% (tableau récap dans le fichier $utilisation$).
+
+En réalisant les graphes correspondants à ces données avec la commande  $python$ $graphe.py$ $res\_tests/res\_tache\_B(1/2)' $, on observe une courbe polynomial, ce qui correspond à notre complexité théorique.
+
+ \end{center}
+ 
+ \clearpage
+ 
+ 
 \subsection*{Question 19}
 Lorsqu'on remplit la ligne i du tableau, on n'a besoin de regarder uniquement 3 cases : D(i-1,j-1), D(i-1,j) et D(i,j-1) (cf l'algorithme).
 Ainsi, on n'utilise pas les lignes $D(i',j)_{(i'<i-1, j\in[1..m])}$
@@ -236,6 +273,25 @@ DIST_2(x,y):
 \end{lstlisting}
 
 \clearpage
+
+\begin{center}
+
+\subsection*{TACHE C}
+Le code de la tâche C se trouve dans le fichier C.py. Certaines fonctions sont volontairement redondantes dans plusieurs fichier afin de n'avoir aucune dépédence de fichier entre chaque tâche.
+
+Les résultats des tests se trouvent dans le fichier $res\_tests/res\_tache\_C1$ et $res\_tests/res\_tache\_C2$.
+
+Vous pouvez également créer vos données correspondantes aux performances de votre machine en éxecutant le fichier 'mesures-py'.
+
+
+La consommation mémoire pour la plus grosse instance était de 0.2\% (tableau récap dans le fichier $utilisation$). Ceci est bien meilleur que DIST\_1 qui utilisait trop de mémoire et rendait l'éxecution de notre programme impossible pour les trop grosses instances. Avec cette méthode on a cependant uniquement la distance d'édition, et non l'alignement optimal.
+
+En réalisant les graphes correspondants à ces données avec la commande  $python$ $graphe.py$ $res\_tests/res\_tache\_C(1/2)' $, on observe une courbe polynomial, ce qui correspond à notre complexité théorique.
+\end{center}
+
+
+
+
 
 \subsection*{Question 21}
 \begin{lstlisting}[
@@ -386,7 +442,23 @@ Quatre tableaux de taille max n/m, donc O(max(n,m)). On suppose que n>= m, ainsi
 \subsection*{Question 28}
 $O(n^{2})$ car il y a deux boucles imbriquées de taille max n.
 
+\begin{center}
+
+\subsection*{TACHE D}
+Le code de la tâche D se trouve dans le fichier D.py. Certaines fonctions sont volontairement redondantes dans plusieurs fichier afin de n'avoir aucune dépédence de fichier entre chaque tâche.
+
+Les résultats des tests se trouvent dans le fichier $res\_tests/res\_tache\_D1$ et $res\_tests/res\_tache\_D2$.
+
+Vous pouvez également créer vos données correspondantes aux performances de votre machine en éxecutant le fichier 'mesures-py'.
+
+
+La consommation mémoire pour la plus grosse instance était de 0.2\% (tableau récap dans le fichier $utilisation$).  On obtient un résultat identique à la tâche C car la méthode est très similaire.
+
+En réalisant les graphes correspondants à ces données avec la commande  $python$ $graphe.py$ $res\_tests/res\_tache\_D(1/2)' $, on observe une courbe polynomial, ce qui correspond à notre complexité théorique.
+\end{center}
+
 \subsection*{Question 29}
+En comparant expérimentalement nos résultats, on constate une complexité temporelle meilleure pour SOL\_2 que pour SOL\_1.
 
 \end{document}
 

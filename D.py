@@ -1,3 +1,4 @@
+import sys
 c_del = 2
 c_ins = 2
 
@@ -133,7 +134,7 @@ def align_lettre_mot(x,y):
     return (x_,y)
 
 def main():
-    (x,y) = lire_mots("Instances_genome/Inst_0000010_44.adn")
+    (x,y) = lire_mots(sys.argv[1])
     (x,y) = sol_2(x,y)
     print("{}\n{}".format(x,y))
 

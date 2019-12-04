@@ -1,5 +1,5 @@
 			%CPU	%MEM
 Tache A :	100		0.1
-Tache B :	100		100
-Tache C :
+Tache B :	100		>100
+Tache C :	100		0.2
 Tache D :	100		0.2

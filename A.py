@@ -1,3 +1,4 @@
+import sys
 c_del = 2
 c_ins = 2
 
@@ -79,7 +80,7 @@ def dist_naif_rec(x,y,i,j,c,dist):
 
 
 def main():
-    (x,y) = lire_mots("Instances_genome/Inst_0000010_44.adn")
+    (x,y) = lire_mots(sys.argv[1])
     dist = dist_naif(x,y)
     print("Distance : {}".format(dist))
 

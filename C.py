@@ -1,3 +1,4 @@
+import sys
 c_del = 2
 c_ins = 2
 
@@ -73,7 +74,7 @@ def dist_2(x,y):
     return D
 
 def main():
-    (x,y) = lire_mots("Instances_genome/Inst_0000010_7.adn")
+    (x,y) = lire_mots(sys.argv[1])
     D = dist_2(x,y)
     print(D[-1])
 
