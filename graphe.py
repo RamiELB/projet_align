@@ -7,8 +7,8 @@ def read_data(filename):
     with open(filename, 'r') as f:
         for line in f:
             line = line.split(' ')
-            t = line[0]
-            s = line[1]
+            t = int(line[0])
+            s = float(line[1])
             taille.append(t)
             temps.append(s)
                 
@@ -23,7 +23,7 @@ def main():
     plt.plot(taille,temps)
     plt.title(filename)
     plt.xlabel("Taille des instances")
-    plt.ylabel("Temps d'éxecution (en s)")
+    plt.ylabel("Temps d'execution (en s)")
     plt.show()
 
 
